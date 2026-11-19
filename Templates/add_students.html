@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <title>Add Students</title>
+    <link rel="stylesheet" href="/static/css/add_students.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Management System</h1>
+        <h2>Add New Students</h2>
+
+        <form action="/add_students" method="POST">
+
+            <label>First Name</label>
+            <input type="text" name="firstname"
+                   placeholder="Enter first name" required>
+
+            <label>Last Name</label>
+            <input type="text" name="lastname"
+                   placeholder="Enter last name" required>
+
+            <label>Email</label>
+            <input type="email" name="email"
+                   placeholder="Enter email" required>
+
+            <label>Age</label>
+            <input type="number" name="age"
+                   placeholder="Enter age" required>
+
+            <label>Course</label>
+            <input type="text" name="course"
+                   placeholder="Enter course" required>
+
+            <label>Mobile Number</label>
+            <input type="tel" name="mobileno"
+                   placeholder="Enter mobile number" required>
+
+            <button type="submit">Save Student</button>
+
+        </form>
+
+        <a href="/dashboard" class="back-link">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

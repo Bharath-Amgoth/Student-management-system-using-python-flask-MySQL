@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+    <title>View Students</title>
+
+    <link rel="stylesheet" href="/static/css/view_students.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Management System</h1>
+        <h2>Student Records</h2>
+
+        <div class="top-bar">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/add_students">Add New Student</a>
+        </div>
+
+        <p id="message">Loading student records...</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                        <th>Mobile Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentData"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        async function loadStudents() {
+            try {
+                const response = await fetch("/api/students");
+
+                if (!response.ok) {
+                    throw new Error("Unable to fetch students");
+                }
+
+                const students = await response.json();
+
+                const table = document.getElementById("studentData");
+                const message = document.getElementById("message");
+
+                table.innerHTML = "";
+
+                if (students.length === 0) {
+                    message.textContent = "No student records found.";
+                    return;
+                }
+
+                message.textContent = "";
+
+                students.forEach(student => {
+                    const row = document.createElement("tr");
+
+                    [
+                        student.id,
+                        student.firstname,
+                        student.lastname,
+                        student.email,
+                        student.age,
+                        student.course,
+                        student.mobileno
+                    ].forEach(value => {
+                        const cell = document.createElement("td");
+                        cell.textContent = value ?? "";
+                        row.appendChild(cell);
+                    });
+                    //update button
+                    const actionCell = document.createElement("td");
+                    const updateLink = document.createElement("a");
+                    updateLink.href = "/update_student/"+student.id;
+                    updateLink.textContent = "Update";
+                    actionCell.appendChild(updateLink);
+                    row.appendChild(actionCell);
+                    table.appendChild(row);
+                    //delete button
+                    const deleteform = document.createElement("form");
+                    deleteform.method = "POST";
+                    deleteform.action = "/delete_student/"+student.id;
+                    deleteform.style.display = "inline";
+                    deleteform.onsubmit=function(){
+                        return confirm("Are you sure you want to delete this student?");
+                    };
+                    const deleteButton = document.createElement("button");
+                    deleteButton.type = "submit";
+                    deleteButton.textContent = "Delete";
+                    deleteButton.style.marginLeft = "10px";
+                    deleteform.appendChild(deleteButton);
+                    actionCell.appendChild(deleteform);
+                    row.appendChild(actionCell);
+                    actionCell.appendChild(deleteform);
+                });
+
+            } catch (error) {
+                document.getElementById("message").textContent =
+                    "Error loading student records.";
+            }
+        }
+
+        loadStudents();
+    </script>
+
+</body>
+</html>

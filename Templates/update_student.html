@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <title>Update Student</title>
+    <link rel="stylesheet" href="/static/css/update_student.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Management System</h1>
+        <h2>Update Student Details</h2>
+
+        <form id="updateForm" method="POST">
+
+            <label>First Name</label>
+            <input type="text" name="firstname" id="firstname" required>
+
+            <label>Last Name</label>
+            <input type="text" name="lastname" id="lastname" required>
+
+            <label>Email</label>
+            <input type="email" name="email" id="email" required>
+
+            <label>Age</label>
+            <input type="number" name="age" id="age" required>
+
+            <label>Course</label>
+            <input type="text" name="course" id="course" required>
+
+            <label>Mobile Number</label>
+            <input type="tel" name="mobileno" id="mobileno" required>
+
+            <button type="submit">Update Student</button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <a href="/view_students">Back to Student Records</a>
+
+    </div>
+
+    <script>
+        const studentId = window.location.pathname.split("/").pop();
+
+        document.getElementById("updateForm").action =
+            "/update_student/" + studentId;
+
+        async function loadStudent() {
+
+            try {
+                const response = await fetch("/api/student/" + studentId);
+
+                if (!response.ok) {
+                    throw new Error("Student not found");
+                }
+
+                const student = await response.json();
+
+                document.getElementById("firstname").value = student.firstname;
+                document.getElementById("lastname").value = student.lastname;
+                document.getElementById("email").value = student.email;
+                document.getElementById("age").value = student.age;
+                document.getElementById("course").value = student.course;
+                document.getElementById("mobileno").value = student.mobileno;
+
+            } catch (error) {
+                document.getElementById("message").textContent =
+                    "Unable to load student details.";
+            }
+        }
+
+        loadStudent();
+    </script>
+
+</body>
+</html>

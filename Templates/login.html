@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <title>User Login</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Management System</h1>
+        <h2>Welcome Back!</h2>
+
+        <form action="/login" method="POST">
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+            >
+            <input type="submit" value="submit"/>
+            <input type="reset" value="clear"/>
+
+        </form>
+
+        <p>
+            Don't have an account?
+            <a href="/signup">Register here</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

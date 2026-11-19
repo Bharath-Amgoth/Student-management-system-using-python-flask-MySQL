@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="/static/css/signup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Management System</h1>
+        <h2>Create Account</h2>
+        <form action="/signup" method="post">
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="username..."
+                required
+            >
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email..."
+                required
+            >
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="password..."
+                required
+            >
+            <input type="submit" value="submit"/>
+            <input type="reset" value="clear"/>
+        </form>
+        <p>
+            Already have an account?
+            <a href="/login">Login here</a>
+        </p>
+    </div>
+</body>
+</html>
